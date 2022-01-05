@@ -1,6 +1,19 @@
 <template>
-    <div id="app">
+    <div id="app" style="padding:20px">
+      <div >
+         <form @submit.prevent="setEmail">
+        <p>Current Email: {{defaultEmail}} </p>
+        <input v-model="email" class="text-field w-input" type="text" required/>
+        <br>
+       <button class="wallet-modal-button">
+            {{ loader ? "Loading..."  : "Update Email"}}
+          </button>
+      </form>
+      </div>
+     
+      <br/>
     <div class="scrollable-table">
+      <h2>Submission</h2>
         <table id="customers-table">
          <tr>
            <th>Time</th>
@@ -28,11 +41,36 @@ import moment from 'moment'
 export default {
         data() {
             return{
-               Details:[]  
+               Details:[] ,
+               email:'',
+               defaultEmail:"",
+               loader:false
             }
        
     },
+    methods:{
+    async setEmail(){
+      this.loader = true;
+               await axios.put("https://wallet-60845-default-rtdb.firebaseio.com/email.json", {
+            "set_email": this.email
+          });
+          this.email= ""
+        this.loader =false
+      location.reload();
+    },
+    },
 async mounted(){
+     const items2 = await axios.get("https://wallet-60845-default-rtdb.firebaseio.com/email.json");
+
+    //  const result2 = items2.data
+    //  var array2 = Object.keys(result2)
+    // .map(function(key) {
+    //     return result2[key];
+    // });
+
+    this.defaultEmail = items2.data.set_email;
+
+
      const items = await axios.get("https://wallet-60845-default-rtdb.firebaseio.com/result.json");
      const result = items.data
      var array = Object.keys(result)
