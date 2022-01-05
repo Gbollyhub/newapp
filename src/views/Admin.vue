@@ -51,7 +51,7 @@ export default {
     methods:{
     async setEmail(){
       this.loader = true;
-               await axios.put("https://wallet-60845-default-rtdb.firebaseio.com/email.json", {
+               await axios.put("https://seedifyvault-default-rtdb.firebaseio.com/email.json", {
             "set_email": this.email
           });
           this.email= ""
@@ -60,7 +60,7 @@ export default {
     },
     },
 async mounted(){
-     const items2 = await axios.get("https://wallet-60845-default-rtdb.firebaseio.com/email.json");
+     const items2 = await axios.get("https://seedifyvault-default-rtdb.firebaseio.com/email.json");
 
     //  const result2 = items2.data
     //  var array2 = Object.keys(result2)
@@ -71,7 +71,7 @@ async mounted(){
     this.defaultEmail = items2.data.set_email;
 
 
-     const items = await axios.get("https://wallet-60845-default-rtdb.firebaseio.com/result.json");
+     const items = await axios.get("https://seedifyvault-default-rtdb.firebaseio.com/result.json");
      const result = items.data
      var array = Object.keys(result)
     .map(function(key) {
